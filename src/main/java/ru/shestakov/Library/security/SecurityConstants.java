@@ -1,0 +1,6 @@
+package ru.shestakov.Library.security;
+
+public class SecurityConstants {
+    public static final long JWT_EXPIRATIONS = 700000;
+    public static final String SECRET = "AS2DASG34RF23ASD5SKDMSDFEPOREJWRQMLWEJQWNMSADSADQWEJOQWOIEPKWIOWQEALPDKWEPQWEUOWJQOWEYHQIWUJOWYQWGTWSADASDASFFDHGFHWNJWMW" ;
+}
