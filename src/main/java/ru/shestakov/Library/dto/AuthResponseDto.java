@@ -10,8 +10,6 @@ import java.util.Date;
 public class AuthResponseDto {
     private String tokenType = "Bearer ";
     private String accessToken;
-    private String expireTime = new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis() + new SecurityConstants().getJwtExpired()));
-
     public AuthResponseDto(String accessToken){
         this.accessToken = accessToken;
     }

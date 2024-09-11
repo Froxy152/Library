@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Component
 public class JWTGenerator {
-private final    SecurityConstants securityConstants;
+private final   SecurityConstants securityConstants;
 @Autowired
     public JWTGenerator(SecurityConstants securityConstants) {
         this.securityConstants = securityConstants;
@@ -26,7 +26,7 @@ private final    SecurityConstants securityConstants;
     public String generateToken(Authentication auth){
         String username = auth.getName();
         Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + securityConstants.getJwtExpired());
+        Date expireDate = new Date(currentDate.getTime() + securityConstants.jwtExpired);
 
         String token = Jwts.builder()
                 .setSubject(username)
@@ -36,6 +36,7 @@ private final    SecurityConstants securityConstants;
                 .compact();
         return token;
     }
+
     public String getUsernameFromJWT(String token){
         Claims claims = Jwts.parserBuilder().setSigningKey(securityConstants.getSecret())
                 .build()

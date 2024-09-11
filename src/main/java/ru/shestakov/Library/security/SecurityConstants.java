@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("constants")
 public class SecurityConstants {
 
-    public long jwtExpired;
+    public  long jwtExpired;
     public  String secret;
 
 }
