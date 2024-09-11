@@ -5,12 +5,10 @@ This is a sample Java / Maven / Spring Boot it's simple REST,CRUD api.
 
 
 * Clone this repository
-
+* You can build the project and run the tests by running ```mvn clean package```
 * Once successfully built, you can run the service by one of these two methods:
 ```
-        java -jar -Dspring.profiles.active=test target/spring-boot-rest-example-0.5.0.war
-or
-        mvn spring-boot:run -Drun.arguments="spring.profiles.active=test"
+       java -jar target/Library-0.0.1-SNAPSHOT.war
 ```
 
 
