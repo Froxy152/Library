@@ -1,4 +1,4 @@
-package ru.shestakov.Library.util;
+package ru.shestakov.Library.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,5 +11,5 @@ public class BookErrorResponse {
 
     @Getter
     @Setter
-    private long   errorTimeStamp;
+    private long errorTimeStamp;
 }

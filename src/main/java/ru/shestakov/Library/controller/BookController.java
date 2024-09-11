@@ -1,58 +1,56 @@
 package ru.shestakov.Library.controller;
 
 
-import org.modelmapper.ModelMapper;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.shestakov.Library.dto.BookDTO;
-import ru.shestakov.Library.entity.Book;
+import ru.shestakov.Library.dto.BookDto;
+
 import ru.shestakov.Library.service.BookService;
-import ru.shestakov.Library.util.BookAlReadyExistsException;
-import ru.shestakov.Library.util.BookErrorResponse;
-import ru.shestakov.Library.util.BookNotFoundedException;
+
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/v1")
-@Controller
 public class BookController {
  private final BookService bookService;
- private final ModelMapper modelMapper;
 
- @Autowired
-    public BookController(BookService bookService, ModelMapper modelMapper){
-     this.bookService = bookService;
-     this.modelMapper = modelMapper;
 
- }
+    @Autowired
+    public BookController(BookService bookService){
+        this.bookService = bookService;
+    }
 
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<BookDTO> showAll(){return (bookService.findAll().stream().map(this::convertToBookDto).collect(Collectors.toList()));}
+    public List<BookDto> showAll(){
+        return bookService.findAll();
+    }
 
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public BookDTO showOneById(@PathVariable Integer id){return convertToBookDto(bookService.findOne(id));}
+    public BookDto showOneById(@PathVariable Integer id){
+        return bookService.findOne(id);
+    }
 
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/isbn/{isbn}")
-    public BookDTO showByIsbn(@PathVariable String isbn){ return convertToBookDto(bookService.findByIsbn(isbn));}
+    public BookDto showByIsbn(@PathVariable String isbn){
+        return bookService.findByIsbn(isbn);
+    }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody BookDTO bookDTO){
-     bookService.save(convertToBook(bookDTO));
-
- }
+    public void save(@RequestBody BookDto bookDTO){
+        bookService.save(bookDTO);
+    }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -62,35 +60,8 @@ public class BookController {
 
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Integer id, @RequestBody BookDTO bookDTO){
-     bookService.updateBook(id, convertToBook(bookDTO));
-}
-
-
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResponse> handleException(BookNotFoundedException e){
-     BookErrorResponse response = new BookErrorResponse(
-             "Book wasn't found!",
-             System.currentTimeMillis()
-     );
-        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
-    }
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResponse> handleAllReadyExistsException(BookAlReadyExistsException e){
-     BookErrorResponse response = new BookErrorResponse(
-             "This is Book all ready exists",
-             System.currentTimeMillis()
-     );
-     return new ResponseEntity<>(response,HttpStatus.CONFLICT);
-    }
-
-
-    public BookDTO convertToBookDto(Book book){
-        return modelMapper.map(book,BookDTO.class);
-    }
-
-    public Book convertToBook(BookDTO bookDTO){
-        return modelMapper.map(bookDTO,Book.class);
+    public void update(@PathVariable Integer id, @RequestBody BookDto bookDTO){
+        bookService.updateBook(id, bookDTO);
     }
 
 }

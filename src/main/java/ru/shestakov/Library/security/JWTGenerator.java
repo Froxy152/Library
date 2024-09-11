@@ -1,34 +1,43 @@
 package ru.shestakov.Library.security;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+
 
 import java.util.Date;
 
 @Component
 public class JWTGenerator {
+private final    SecurityConstants securityConstants;
+@Autowired
+    public JWTGenerator(SecurityConstants securityConstants) {
+        this.securityConstants = securityConstants;
+    }
+
     public String generateToken(Authentication auth){
         String username = auth.getName();
         Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATIONS);
+        Date expireDate = new Date(currentDate.getTime() + securityConstants.getJwtExpired());
 
         String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512,SecurityConstants.SECRET)
+                .signWith(SignatureAlgorithm.HS512,securityConstants.getSecret())
                 .compact();
         return token;
     }
     public String getUsernameFromJWT(String token){
-        Claims claims = Jwts.parserBuilder().setSigningKey(SecurityConstants.SECRET)
+        Claims claims = Jwts.parserBuilder().setSigningKey(securityConstants.getSecret())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -37,7 +46,7 @@ public class JWTGenerator {
 
     public boolean validateToken(String token){
         try{
-            Jwts.parserBuilder().setSigningKey(SecurityConstants.SECRET).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(securityConstants.getSecret()).build().parseClaimsJws(token);
             return  true;
         }catch (Exception e){
             throw  new AuthenticationCredentialsNotFoundException("jwt expired");

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.shestakov.Library.service.CustomUserDetailsService;
+import ru.shestakov.Library.security.CustomUserDetailsService;
 import ru.shestakov.Library.security.JWTAuthEntryPoint;
 import ru.shestakov.Library.security.JWTAuthFilter;
 
@@ -27,7 +27,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     private final JWTAuthEntryPoint jwtAuthEntryPoint;
     private final CustomUserDetailsService customUserDetailsService;
-
+    private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs",
+            "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+            "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/api/auth/**",
+            "/api/test/**", "/authenticate" };
 
     public SecurityConfig(JWTAuthEntryPoint jwtAuthEntryPoint, CustomUserDetailsService customUserDetailsService) {
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
@@ -42,8 +45,8 @@ public class SecurityConfig {
                 .exceptionHandling((exception)-> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(HttpMethod.POST).permitAll()
-                                .requestMatchers("/api-docs","/swagger-ui/**").permitAll()
+                                .requestMatchers("/api/v1/auth/login","/api/v1/auth/reg").permitAll()
+                                .requestMatchers(WHITE_LIST_URL).permitAll()
                                 .requestMatchers(HttpMethod.PATCH).authenticated()
                                 .requestMatchers(HttpMethod.GET).authenticated()
                                 .requestMatchers(HttpMethod.PUT).authenticated()

@@ -1,4 +1,4 @@
-package ru.shestakov.Library.util;
+package ru.shestakov.Library.exceptions;
 
 public class BookAlReadyExistsException extends RuntimeException{
 }
