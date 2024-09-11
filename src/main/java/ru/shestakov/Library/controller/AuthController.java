@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.shestakov.Library.DTO.AuthResponseDTO;
-import ru.shestakov.Library.DTO.UserSignInDTO;
+import ru.shestakov.Library.dto.AuthResponseDTO;
+import ru.shestakov.Library.dto.UserSignInDTO;
 import ru.shestakov.Library.entity.User;
 import ru.shestakov.Library.service.AuthService;
 

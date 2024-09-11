@@ -3,11 +3,8 @@ package ru.shestakov.Library.controller;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.shestakov.Library.DTO.BookDTO;
-import ru.shestakov.Library.DTO.LibraryDTO;
-import ru.shestakov.Library.entity.Book;
+import ru.shestakov.Library.dto.LibraryDTO;
 import ru.shestakov.Library.entity.Library;
 import ru.shestakov.Library.service.LibraryService;
 

@@ -15,7 +15,8 @@ import ru.shestakov.Library.entity.User;
 import ru.shestakov.Library.repo.RoleRepository;
 import ru.shestakov.Library.repo.UserRepository;
 import ru.shestakov.Library.security.JWTGenerator;
-import ru.shestakov.Library.util.BookAllReadyExistsException;
+import ru.shestakov.Library.util.BookAlReadyExistsException;
+import ru.shestakov.Library.util.UserAlReadyExistsException;
 
 
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class AuthService {
     }
     public void register(User user){
         if(userRepository.existsByUsername(user.getUsername())){
-            throw new BookAllReadyExistsException();
+            throw new UserAlReadyExistsException();
         }
         User u = new User();
         u.setUsername(user.getUsername());
