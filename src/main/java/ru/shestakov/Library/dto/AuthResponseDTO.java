@@ -1,8 +1,6 @@
-package ru.shestakov.Library.DTO;
+package ru.shestakov.Library.dto;
 
-import com.fasterxml.jackson.databind.DatabindException;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.shestakov.Library.security.SecurityConstants;
 
 import java.text.SimpleDateFormat;

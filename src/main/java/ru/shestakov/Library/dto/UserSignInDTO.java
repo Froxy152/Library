@@ -1,4 +1,4 @@
-package ru.shestakov.Library.DTO;
+package ru.shestakov.Library.dto;
 
 import lombok.Data;
 

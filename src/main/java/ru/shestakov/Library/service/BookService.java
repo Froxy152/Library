@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.shestakov.Library.entity.Book;
 import ru.shestakov.Library.entity.Library;
 import ru.shestakov.Library.repo.BookRepo;
-import ru.shestakov.Library.repo.LibraryRepository;
-import ru.shestakov.Library.util.BookAllReadyExistsException;
+import ru.shestakov.Library.util.BookAlReadyExistsException;
 import ru.shestakov.Library.util.BookNotFoundedException;
 
 
@@ -37,7 +36,7 @@ public class BookService {
 
 
     public void save(Book book){
-        if(bookRepo.existsByTitle(book.getTitle()) && bookRepo.existsByIsbn(book.getIsbn())) throw new BookAllReadyExistsException();
+        if(bookRepo.existsByTitle(book.getTitle()) && bookRepo.existsByIsbn(book.getIsbn())) throw new BookAlReadyExistsException();
         bookRepo.save(book);
         book.setStatus("Free");
         libraryService.save(new Library(bookRepo.findByTitle(book.getTitle()).get().getId()));

@@ -3,25 +3,19 @@ package ru.shestakov.Library.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.shestakov.Library.DTO.BookDTO;
+import ru.shestakov.Library.dto.BookDTO;
 import ru.shestakov.Library.entity.Book;
-import ru.shestakov.Library.entity.Library;
 import ru.shestakov.Library.service.BookService;
-import ru.shestakov.Library.service.LibraryService;
-import ru.shestakov.Library.util.BookAllReadyExistsException;
+import ru.shestakov.Library.util.BookAlReadyExistsException;
 import ru.shestakov.Library.util.BookErrorResponse;
 import ru.shestakov.Library.util.BookNotFoundedException;
 
-import javax.security.sasl.SaslServer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -82,7 +76,7 @@ public class BookController {
         return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler
-    private ResponseEntity<BookErrorResponse> handleAllReadyExistsException(BookAllReadyExistsException e){
+    private ResponseEntity<BookErrorResponse> handleAllReadyExistsException(BookAlReadyExistsException e){
      BookErrorResponse response = new BookErrorResponse(
              "This is Book all ready exists",
              System.currentTimeMillis()
