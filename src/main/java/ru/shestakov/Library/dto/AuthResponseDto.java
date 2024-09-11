@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
-public class AuthResponseDTO {
+public class AuthResponseDto {
     private String tokenType = "Bearer ";
     private String accessToken;
-    private String expireTime = new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis() + SecurityConstants.JWT_EXPIRATIONS));
+    private String expireTime = new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis() + new SecurityConstants().getJwtExpired()));
 
-    public AuthResponseDTO(String accessToken){
+    public AuthResponseDto(String accessToken){
         this.accessToken = accessToken;
     }
 }

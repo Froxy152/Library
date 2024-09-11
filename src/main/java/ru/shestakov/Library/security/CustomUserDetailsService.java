@@ -1,4 +1,4 @@
-package ru.shestakov.Library.service;
+package ru.shestakov.Library.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
