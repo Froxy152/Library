@@ -26,7 +26,7 @@ public class LibraryController {
 
     @PatchMapping("/set/{id}")
     public void setOc(@PathVariable Integer id){
-        libraryService.setStatusById(id, "oc");
+        libraryService.setStatusById(id,"OCCUPIED");
     }
 
 

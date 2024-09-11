@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET).authenticated()
                                 .requestMatchers(HttpMethod.PUT).authenticated()
                                 .requestMatchers(HttpMethod.DELETE).authenticated()
+                                .requestMatchers(HttpMethod.PATCH).authenticated()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).httpBasic(withDefaults());
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -44,7 +44,6 @@ public class BookService {
         bookRepository.save(book);
         book.setStatus(StatusEnum.FREE.toString());
         libraryService.save(new Library(bookRepository.findByTitle(book.getTitle()).get().getId()));
-
     }
 
 
@@ -72,7 +71,9 @@ public class BookService {
         book1.setAuthor(book.getAuthor());
         book1.setDescription(book.getDescription());
         book1.setGenre(book.getGenre());
-
+        if(book.getStatus().equals(StatusEnum.FREE.toString())){
+            libraryService.save(new Library(book.getId()));
+        }
        bookRepository.save(book1);
     }
 

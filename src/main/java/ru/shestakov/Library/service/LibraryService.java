@@ -30,7 +30,8 @@ public class LibraryService {
     }
 
     public void save(Library library){
-        library.setTaken_at(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        library.setTaken_at(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd:HH:mm:ss")));
+        library.setReturn_at(LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("dd:HH:mm:ss")));
         libraryRepository.save(library);
     }
     public List<LibraryDto> showAllFreeBooks(){
@@ -41,12 +42,15 @@ public class LibraryService {
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
 
         book.setStatus(status);
-        if(status.equals(StatusEnum.OCCUPAED.toString())){
+        if(status.equals(StatusEnum.OCCUPIED.toString())){
             libraryRepository.deleteByBook(book.getId());
         }
+
         bookRepository.save(book);
     }
     public LibraryDto convertToLibraryDto(Library library){
         return modelMapper.map(library, LibraryDto.class);
+    }public Library convertToLibrary(Book book){
+        return modelMapper.map(book, Library.class);
     }
 }
