@@ -46,7 +46,7 @@ public class BookController {
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody BookDto bookDTO){
         bookService.save(bookDTO);
