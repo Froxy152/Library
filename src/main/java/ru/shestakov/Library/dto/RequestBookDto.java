@@ -1,12 +1,9 @@
 package ru.shestakov.Library.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-public class BookDto {
-
+@Data
+public class RequestBookDto {
     private String title;
 
     private String genre;
@@ -16,7 +13,4 @@ public class BookDto {
     private String description;
 
     private String isbn;
-
-    private String status;
-
 }

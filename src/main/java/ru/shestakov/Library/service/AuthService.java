@@ -2,6 +2,7 @@ package ru.shestakov.Library.service;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,9 +12,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ru.shestakov.Library.dto.UserSignInDto;
+import ru.shestakov.Library.dto.UserRequestLoginDto;
+import ru.shestakov.Library.dto.UserRequestRegistrationDto;
 import ru.shestakov.Library.entity.Role;
 import ru.shestakov.Library.entity.User;
+import ru.shestakov.Library.mapper.UserMapper;
 import ru.shestakov.Library.repo.RoleRepository;
 import ru.shestakov.Library.repo.UserRepository;
 import ru.shestakov.Library.security.JWTGenerator;
@@ -29,27 +32,28 @@ public class AuthService {
  private  final PasswordEncoder passwordEncoder;
  private final RoleRepository roleRepository;
  private final JWTGenerator jwtGenerator;
- private final ModelMapper modelMapper;
-
-    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, RoleRepository roleRepository, JWTGenerator jwtGenerator, ModelMapper modelMapper) {
+ private final UserMapper userMapper;
+    @Autowired
+    public AuthService(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, RoleRepository roleRepository, JWTGenerator jwtGenerator, ModelMapper modelMapper, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.jwtGenerator = jwtGenerator;
-        this.modelMapper = modelMapper;
+        this.userMapper = userMapper;
+
     }
 
-    public String login(UserSignInDto userSignInDto){
-        User user = UserDTOToUser(userSignInDto);
+    public String login(UserRequestLoginDto userRequestLoginDto){
+        User user = userMapper.UserDTOToUser(userRequestLoginDto);
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return jwtGenerator.generateToken(authentication);
     }
-    public void register(UserSignInDto userSignInDto){
-        User user = UserDTOToUser(userSignInDto);
+    public void register(UserRequestRegistrationDto userRequestRegistrationDto){
+        User user = userMapper.UserRegistrationDtoToUser(userRequestRegistrationDto);
         if(userRepository.existsByUsername(user.getUsername())){
             throw new UserAlReadyExistsException();
         }
@@ -61,7 +65,5 @@ public class AuthService {
         userRepository.save(u);
     }
 
-    User UserDTOToUser(UserSignInDto userSignInDTO){
-        return modelMapper.map(userSignInDTO, User.class);
-    }
+
 }

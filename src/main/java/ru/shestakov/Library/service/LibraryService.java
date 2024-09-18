@@ -8,6 +8,7 @@ import ru.shestakov.Library.dto.LibraryDto;
 import ru.shestakov.Library.entity.Book;
 import ru.shestakov.Library.entity.Library;
 import ru.shestakov.Library.entity.StatusEnum;
+import ru.shestakov.Library.mapper.LibraryMapper;
 import ru.shestakov.Library.repo.BookRepository;
 import ru.shestakov.Library.repo.LibraryRepository;
 import ru.shestakov.Library.exceptions.BookNotFoundException;
@@ -21,12 +22,13 @@ import java.util.stream.Collectors;
 public class LibraryService {
     private final BookRepository bookRepository;
     private final LibraryRepository libraryRepository;
-    private final ModelMapper modelMapper;
+    private final LibraryMapper libraryMapper;
 
-    public LibraryService(BookRepository bookRepository, LibraryRepository libraryRepository, ModelMapper modelMapper) {
+    public LibraryService(BookRepository bookRepository, LibraryRepository libraryRepository, LibraryMapper libraryMapper) {
         this.bookRepository = bookRepository;
         this.libraryRepository = libraryRepository;
-        this.modelMapper = modelMapper;
+
+        this.libraryMapper = libraryMapper;
     }
 
     public void save(Library library){
@@ -35,7 +37,7 @@ public class LibraryService {
         libraryRepository.save(library);
     }
     public List<LibraryDto> showAllFreeBooks(){
-        return libraryRepository.findAll().stream().map((this::convertToLibraryDto)).collect(Collectors.toList());
+        return libraryRepository.findAll().stream().map((libraryMapper::convertToLibraryDto)).collect(Collectors.toList());
     }
     @Transactional
     public void setStatusById(Integer id, String status){
@@ -48,9 +50,5 @@ public class LibraryService {
 
         bookRepository.save(book);
     }
-    public LibraryDto convertToLibraryDto(Library library){
-        return modelMapper.map(library, LibraryDto.class);
-    }public Library convertToLibrary(Book book){
-        return modelMapper.map(book, Library.class);
-    }
+
 }

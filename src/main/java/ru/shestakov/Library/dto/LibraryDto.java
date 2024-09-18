@@ -9,7 +9,6 @@ import lombok.Setter;
 public class LibraryDto {
 
     private String taken_at;
-
     private String return_at;
     private int book;
 

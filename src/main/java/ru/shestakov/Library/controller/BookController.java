@@ -1,11 +1,11 @@
 package ru.shestakov.Library.controller;
 
 
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.shestakov.Library.dto.BookDto;
+import ru.shestakov.Library.dto.ResponseBookDto;
 
 import ru.shestakov.Library.service.BookService;
 
@@ -27,41 +27,41 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<BookDto> showAll(){
+    public List<ResponseBookDto> showAll(){
         return bookService.findAll();
     }
 
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public BookDto showOneById(@PathVariable Integer id){
-        return bookService.findOne(id);
+    public ResponseEntity<?> showOneById(@PathVariable Integer id){
+        return new ResponseEntity<>(bookService.findOne(id),HttpStatus.OK);
     }
 
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/isbn/{isbn}")
-    public BookDto showByIsbn(@PathVariable String isbn){
-        return bookService.findByIsbn(isbn);
+    public ResponseEntity<?> showByIsbn(@PathVariable String isbn){
+        return new ResponseEntity<>(bookService.findByIsbn(isbn), HttpStatus.OK);
     }
 
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody BookDto bookDTO){
-        bookService.save(bookDTO);
+    public ResponseEntity<?> save(@RequestBody ResponseBookDto responseBookDTO){
+       return new ResponseEntity<>(bookService.save(responseBookDTO),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
      bookService.delete(id);
 }
 
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Integer id, @RequestBody BookDto bookDTO){
-        bookService.updateBook(id, bookDTO);
+    public ResponseEntity<?>  update(@PathVariable Integer id, @RequestBody ResponseBookDto responseBookDTO){
+    return new ResponseEntity<>(bookService.updateBook(id, responseBookDTO),HttpStatus.OK);
     }
 
 }

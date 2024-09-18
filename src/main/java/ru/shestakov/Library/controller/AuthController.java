@@ -1,13 +1,12 @@
 package ru.shestakov.Library.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.shestakov.Library.dto.AuthResponseDto;
-import ru.shestakov.Library.dto.UserSignInDto;
-import ru.shestakov.Library.entity.User;
+import ru.shestakov.Library.dto.UserRequestLoginDto;
+import ru.shestakov.Library.dto.UserRequestRegistrationDto;
 import ru.shestakov.Library.service.AuthService;
 
 @RestController
@@ -22,15 +21,15 @@ public class AuthController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AuthResponseDto> login(@RequestBody UserSignInDto userSignInDTO){
-        String token = authService.login(userSignInDTO);
+    public ResponseEntity<AuthResponseDto> login(@RequestBody UserRequestLoginDto userRequestLoginDTO){
+        String token = authService.login(userRequestLoginDTO);
         return new ResponseEntity<>(new AuthResponseDto(token),HttpStatus.OK);
     }
 
     @PostMapping("/reg")
     @ResponseStatus(HttpStatus.CREATED)
-    public void reg(@RequestBody UserSignInDto userSignInDTO){
-        authService.register(userSignInDTO);
+    public void reg(@RequestBody UserRequestRegistrationDto userRequestRegistrationDto){
+        authService.register(userRequestRegistrationDto);
     }
 
 

@@ -48,7 +48,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/auth/login","/api/v1/auth/reg").permitAll()
                                 .requestMatchers(WHITE_LIST_URL).permitAll()
                                 .requestMatchers(HttpMethod.PATCH).authenticated()
-                                .requestMatchers(HttpMethod.GET).authenticated()
+                                .requestMatchers(HttpMethod.GET,"/api/v1/**").authenticated()
                                 .requestMatchers(HttpMethod.PUT).authenticated()
                                 .requestMatchers(HttpMethod.DELETE).authenticated()
                                 .requestMatchers(HttpMethod.PATCH).authenticated()
