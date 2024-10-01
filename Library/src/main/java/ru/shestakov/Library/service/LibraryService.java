@@ -22,17 +22,9 @@ public class LibraryService {
     private final BookServiceProxy bookServiceProxy;
 
     public LibraryService(LibraryRepository libraryRepository, LibraryMapper libraryMapper, BookServiceProxy bookServiceProxy) {
-
         this.libraryRepository = libraryRepository;
-
         this.libraryMapper = libraryMapper;
         this.bookServiceProxy = bookServiceProxy;
-    }
-    public void setStatusById(Integer id,String status,String token){
-       if(status.equals("OCCUPIED")) {
-           libraryRepository.deleteByBook(id);
-       }
-       bookServiceProxy.updateStatus(id,status, token);
     }
 
     public LibraryDto save(Integer id){

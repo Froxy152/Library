@@ -25,11 +25,7 @@ public class LibraryController {
         return libraryService.showAllFreeBooks();
     }
 
-    @PatchMapping("/setOc/{id}")
-    public void setOc(@PathVariable Integer id, @RequestParam String status,@RequestHeader String Authorization
-                      ){
-        libraryService.setStatusById(id,status, Authorization);
-    }
+
 
     @PostMapping("/add")
     public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization

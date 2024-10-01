@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "freebooks")
 public class Library {
     @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "taken_at")
     private String taken_at;
