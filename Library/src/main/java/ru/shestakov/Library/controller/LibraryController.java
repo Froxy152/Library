@@ -20,18 +20,20 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-    @GetMapping
+    @GetMapping("/books")
     public List<LibraryDto> getFreeListBooks(){
         return libraryService.showAllFreeBooks();
     }
 
 
-
     @PostMapping("/add")
-    public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization
-    ){
+    public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization){
         return new ResponseEntity<>(libraryService.save(id), HttpStatus.CREATED);
     }
 
+    @DeleteMapping
+    public void deleteByStatus(@RequestParam Integer id, @RequestHeader String Authorization){
+        libraryService.deleteByStatus(id);
+    }
 
 }

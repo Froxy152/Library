@@ -17,7 +17,6 @@ public class AuthController {
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
-
     }
 
     @PostMapping("/login")
@@ -32,9 +31,4 @@ public class AuthController {
     public ResponseEntity<?> registration(@RequestBody UserRequestRegistrationDto userRequestRegistrationDto){
        return new ResponseEntity<>(authService.register(userRequestRegistrationDto),HttpStatus.CREATED);
     }
-
-
-
-
-
 }

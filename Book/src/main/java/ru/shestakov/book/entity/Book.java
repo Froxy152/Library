@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import lombok.Data;
-import lombok.Getter;
-
-import lombok.Setter;
 
 
 @Entity
@@ -42,6 +39,6 @@ public class Book {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     @JsonProperty(value = "status")
-    private StatusEnum status;
+    private Status status;
     public Book(){}
 }

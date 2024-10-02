@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.shestakov.book.dto.BookDto;
 import ru.shestakov.book.dto.ResponseBookDto;
 
-import ru.shestakov.book.entity.StatusEnum;
+import ru.shestakov.book.entity.Status;
 import ru.shestakov.book.service.BookService;
 
 
@@ -27,48 +27,47 @@ public class BookController {
     }
 
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping
+
+    @GetMapping("/books")
     public List<ResponseBookDto> showAll(){
         return bookService.findAll();
     }
 
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
+
+    @GetMapping("book/{id}")
     public ResponseEntity<?> showOneById(@PathVariable Integer id){
         return new ResponseEntity<>(bookService.findOne(id),HttpStatus.OK);
     }
 
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/isbn/{isbn}")
+
+    @GetMapping("/book/isbn/{isbn}")
     public ResponseEntity<?> showByIsbn(@PathVariable String isbn){
         return new ResponseEntity<>(bookService.findByIsbn(isbn), HttpStatus.OK);
     }
 
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> save(@RequestBody BookDto bookDto, @RequestHeader String Authorization){
        return new ResponseEntity<>(bookService.save(bookDto,Authorization),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
      bookService.delete(id);
-}
+    }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?>  update(@PathVariable Integer id, @RequestBody BookDto bookDto){
     return new ResponseEntity<>(bookService.updateBook(id, bookDto),HttpStatus.OK);
     }
 
-    @PatchMapping("/update/status/{id}")
-    public ResponseEntity<?> updateStatus(@PathVariable Integer id, @RequestBody StatusEnum status){
-        return new ResponseEntity<>(bookService.updateStatusById(id,status),HttpStatus.OK);
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> updateStatus(@PathVariable Integer id, @RequestBody Status status, @RequestHeader String Authorization){
+        return new ResponseEntity<>(bookService.updateStatusById(id,status,Authorization),HttpStatus.OK);
     }
 
 }

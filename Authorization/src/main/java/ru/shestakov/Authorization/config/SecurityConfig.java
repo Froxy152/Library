@@ -31,7 +31,6 @@ public class SecurityConfig {
     public SecurityConfig(JWTAuthEntryPoint jwtAuthEntryPoint, CustomUserDetailsService customUserDetailsService) {
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
         this.customUserDetailsService = customUserDetailsService;
-
     }
 
     @Bean

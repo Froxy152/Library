@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import ru.shestakov.book.dto.BookDto;
 import ru.shestakov.book.dto.ResponseBookDto;
 import ru.shestakov.book.entity.Book;
-import ru.shestakov.book.entity.StatusEnum;
+import ru.shestakov.book.entity.Status;
 import ru.shestakov.book.exceptions.*;
-import ru.shestakov.book.feign.LibraryServiceProxy;
+import ru.shestakov.book.feign.LibraryServiceClient;
 import ru.shestakov.book.mapper.BookMapper;
 import ru.shestakov.book.repository.BookRepository;
 
@@ -23,15 +23,15 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final LibraryServiceProxy libraryServiceProxy;
+    private final LibraryServiceClient libraryServiceClient;
 
 
     @Autowired
     public BookService(BookRepository bookRepository,
-                       BookMapper bookMapper, LibraryServiceProxy libraryServiceProxy){
+                       BookMapper bookMapper, LibraryServiceClient libraryServiceClient){
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
-        this.libraryServiceProxy = libraryServiceProxy;
+        this.libraryServiceClient = libraryServiceClient;
 
     }
 
@@ -45,9 +45,9 @@ public class BookService {
             throw new BookAlReadyExistsException();
         }
         Book convertedBook = bookMapper.convertBookDtoToBook(bookDto);
-        convertedBook.setStatus(StatusEnum.FREE);
+        convertedBook.setStatus(Status.FREE);
         bookRepository.save(convertedBook);
-        libraryServiceProxy.save(convertedBook.getId(), token);
+        libraryServiceClient.save(convertedBook.getId(), token);
         return bookMapper.convertToResponseBookDto(bookRepository.save(convertedBook));
     }
 
@@ -79,8 +79,11 @@ public class BookService {
         return bookMapper.convertToResponseBookDto(bookRepository.save(findBook));
     }
 
-    public ResponseBookDto updateStatusById(Integer id, StatusEnum status ){
+    public ResponseBookDto updateStatusById(Integer id, Status status , String token){
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        if(status.equals(Status.OCCUPIED)){
+            libraryServiceClient.deleteByStatus(id,token);
+        }
         book.setStatus(status);
         return bookMapper.convertToResponseBookDto(bookRepository.save(book));
 

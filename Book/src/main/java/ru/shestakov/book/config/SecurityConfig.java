@@ -1,5 +1,6 @@
 package ru.shestakov.book.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,11 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.shestakov.book.security.JWTAuthEntryPoint;
 import ru.shestakov.book.security.JWTAuthFilter;
+import ru.shestakov.book.security.SecurityConstants;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(SecurityConstants.class)
 public class SecurityConfig {
     private final JWTAuthEntryPoint jwtAuthEntryPoint;
 

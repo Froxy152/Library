@@ -7,18 +7,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "freebooks")
+@Table(name = "library")
 public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "taken_at")
-    private String taken_at;
+    private long taken_at;
     @Column(name = "return_at")
-    private String return_at;
-    @Column(name = "book")
-    private int book;
+    private long return_at;
+    @Column(name = "bookId")
+    private int bookId;
     public Library(int id){
-        this.book = id;
+        this.bookId = id;
     }
 }
