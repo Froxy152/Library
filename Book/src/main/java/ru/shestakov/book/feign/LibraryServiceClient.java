@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LibraryServiceClient {
 
     @PostMapping("/api/v1/library/add")
-    public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization
-    );
+    public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization);
 
-    @DeleteMapping
+    @DeleteMapping("/api/v1/library")
     public void deleteByStatus(@RequestParam Integer id, @RequestHeader String Authorization);
 }
 

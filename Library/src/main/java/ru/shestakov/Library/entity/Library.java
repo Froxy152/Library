@@ -16,7 +16,7 @@ public class Library {
     private long taken_at;
     @Column(name = "return_at")
     private long return_at;
-    @Column(name = "bookId")
+    @Column(name = "book_id")
     private int bookId;
     public Library(int id){
         this.bookId = id;

@@ -1,7 +1,6 @@
 package ru.shestakov.Library.service;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shestakov.Library.dto.LibraryDto;
 import ru.shestakov.Library.entity.Library;
