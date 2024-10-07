@@ -1,12 +1,17 @@
 
+CREATE TYPE book_status AS ENUM (
+    'FREE',
+    'OCCUPIED',
+
+);
+
 CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(30),
-    genre VARCHAR(30),
-    author VARCHAR(30),
-    description VARCHAR(500),
-    isbn VARCHAR(13),
-    status VARCHAR(10) CHECK (status IN ('FREE', 'OCCUPIED'))
+    author VARCHAR(255) NOT NULL,
+    genre VARCHAR(100),
+    description TEXT,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    status book_status
 );
 
 
@@ -23,10 +28,15 @@ CREATE TABLE IF NOT EXISTS users (
     username varchar(255),
     password varchar(255)
 );
+CREATE TABLE IF NOT EXISTS roles (
+    id SERIAL PRIMARY KEY,
+    role varchar(10)
+);
+
 
 CREATE TABLE IF NOT exists library(
  id SERIAL PRIMARY KEY,
  book int,
- taken_at long,
- return_at long
+ taken_at bigint,
+ return_at bigint
 );
