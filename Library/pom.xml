@@ -34,6 +34,8 @@
 		<modelmapper.version>3.2.0</modelmapper.version>
 		<jjwt.version>0.11.5</jjwt.version>
 		<postgresql.version>42.5.0</postgresql.version> <!-- Укажите актуальную версию -->
+		<swagger-annotation.version>2.2.22</swagger-annotation.version>
+		<opendoc.version>2.5.0</opendoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -96,6 +98,18 @@
 			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${opendoc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger-annotation.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

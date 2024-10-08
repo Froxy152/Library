@@ -34,6 +34,8 @@
 		<spring-plugin.version>2.0.0.RELEASE</spring-plugin.version>
 		<postgresql.version>42.5.0</postgresql.version>
 		<spring-cloud-starter-openfeign.version>4.1.3</spring-cloud-starter-openfeign.version>
+		<swagger-annotation.version>2.2.22</swagger-annotation.version>
+		<opendoc.version>2.5.0</opendoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -96,6 +98,18 @@
 			<artifactId>spring-plugin-core</artifactId>
 			<version>${spring-plugin.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${opendoc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger-annotation.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

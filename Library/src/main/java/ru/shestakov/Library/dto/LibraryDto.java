@@ -10,6 +10,6 @@ public class LibraryDto {
 
     private long taken_at;
     private long return_at;
-    private int book;
+    private int book_id;
 
 }

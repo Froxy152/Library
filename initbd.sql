@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS roles (
     role varchar(10)
 );
 
+insert into roles (role) values ('ADMIN'),('USER');
+
 
 CREATE TABLE IF NOT exists library(
  id SERIAL PRIMARY KEY,

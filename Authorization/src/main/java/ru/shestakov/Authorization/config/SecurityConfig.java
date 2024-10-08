@@ -40,7 +40,10 @@ public class SecurityConfig {
                 .exceptionHandling((exception)-> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/api/v1/auth/login","/api/v1/auth/registration").permitAll()
+                                .requestMatchers("/api/v1/auth/**","/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs",
+                                        "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+                                        "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/api/auth/**",
+                                        "/api/test","/authenticate").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).httpBasic(withDefaults());
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
