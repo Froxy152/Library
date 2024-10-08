@@ -27,10 +27,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="b7f0e741-40d2-41a1-9ee0-55c487a976c3" object-ref="schemas/public/tables/library" />
-      <object connection-id="caab13c3-63d6-4b9d-a128-9a5a7d005603" object-ref="schemas/public/tables/books" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="caab13c3-63d6-4b9d-a128-9a5a7d005603" />
@@ -40,6 +37,7 @@
     <filter-actions connection-id="b7f0e741-40d2-41a1-9ee0-55c487a976c3" dataset="public.book" active-filter-id="" />
     <filter-actions connection-id="b7f0e741-40d2-41a1-9ee0-55c487a976c3" dataset="public.library" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="caab13c3-63d6-4b9d-a128-9a5a7d005603" dataset="public.books" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="caab13c3-63d6-4b9d-a128-9a5a7d005603" dataset="public.library" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface LibraryRepository extends JpaRepository<Library,Integer> {
  Optional<Library> findByBookId(Integer id);
+ boolean existsByBookId(Integer id);
 }

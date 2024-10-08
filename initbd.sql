@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS users (
     password varchar(255)
 );
 CREATE TABLE IF NOT EXISTS roles (
-    id SERIAL PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
     role varchar(10)
 );
 
 
 CREATE TABLE IF NOT exists library(
  id SERIAL PRIMARY KEY,
- book int,
+ book_id int,
  taken_at bigint,
  return_at bigint
 );

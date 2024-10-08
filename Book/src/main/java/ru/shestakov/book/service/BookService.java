@@ -83,6 +83,8 @@ public class BookService {
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         if(status.equals(Status.OCCUPIED)){
             libraryServiceClient.deleteByStatus(id,token);
+        }else{
+            libraryServiceClient.save(id,token);
         }
         book.setStatus(status);
         return bookMapper.convertToResponseBookDto(bookRepository.save(book));

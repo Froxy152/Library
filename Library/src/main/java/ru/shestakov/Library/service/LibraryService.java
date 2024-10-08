@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.shestakov.Library.dto.LibraryDto;
 import ru.shestakov.Library.entity.Library;
+import ru.shestakov.Library.exceptions.BookAlReadyExistsInLibraryException;
 import ru.shestakov.Library.mapper.LibraryMapper;
 import ru.shestakov.Library.repository.LibraryRepository;
 import java.time.LocalDateTime;
@@ -23,6 +24,9 @@ public class LibraryService {
     }
 
     public LibraryDto save(Integer id){
+        if(libraryRepository.existsByBookId(id)){
+            throw new BookAlReadyExistsInLibraryException();
+        }
         Library library = new Library();
         library.setBookId(id);
         library.setTaken_at(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));

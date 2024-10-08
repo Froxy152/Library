@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableFeignClients
 public class BookApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(BookApplication.class, args);
 	}
