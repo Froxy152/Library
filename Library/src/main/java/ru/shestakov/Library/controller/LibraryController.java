@@ -33,7 +33,7 @@ public class LibraryController {
 
     @Hidden
     @PostMapping("/add")
-    public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization){
+    public ResponseEntity<LibraryDto> save(@RequestParam Integer id, @RequestHeader String Authorization){
         return new ResponseEntity<>(libraryService.save(id), HttpStatus.CREATED);
     }
     @Hidden

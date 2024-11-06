@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.shestakov.Authorization.dto.AuthResponseDto;
 import ru.shestakov.Authorization.dto.UserRequestLoginDto;
 import ru.shestakov.Authorization.dto.UserRequestRegistrationDto;
+import ru.shestakov.Authorization.dto.UserResponseRegistrationDto;
 import ru.shestakov.Authorization.service.AuthService;
 
 @Tag(name="Авторизация", description="Происходит регистрация и вход")
@@ -34,7 +35,7 @@ public class AuthController {
     )
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> registration(@RequestBody UserRequestRegistrationDto userRequestRegistrationDto){
+    public ResponseEntity<UserResponseRegistrationDto> registration(@RequestBody UserRequestRegistrationDto userRequestRegistrationDto){
        return new ResponseEntity<>(authService.register(userRequestRegistrationDto),HttpStatus.CREATED);
     }
 }
