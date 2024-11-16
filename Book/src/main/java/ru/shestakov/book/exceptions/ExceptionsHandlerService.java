@@ -4,6 +4,8 @@ package ru.shestakov.book.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -25,5 +27,10 @@ public class ExceptionsHandlerService extends ResponseEntityExceptionHandler {
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(response,HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler
+    private ResponseEntity<?> handleUnavailableServiceException(ServiceUnvailabeException e){
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Service Unavailable");
     }
 }

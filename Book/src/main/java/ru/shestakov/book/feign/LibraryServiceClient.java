@@ -4,18 +4,16 @@ package ru.shestakov.book.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
-@FeignClient(name = "Library", url = "${feign.library.url}")
+@FeignClient(name = "Library")
 public interface LibraryServiceClient {
 
     @PostMapping("/api/v1/library/add")
     public ResponseEntity<?> save(@RequestParam Integer id, @RequestHeader String Authorization);
-
+    @GetMapping("/api/v1/library")
+    public ResponseEntity<?> healthCheck(@RequestHeader String Authorization);
     @DeleteMapping("/api/v1/library")
     public void deleteByStatus(@RequestParam Integer id, @RequestHeader String Authorization);
 }

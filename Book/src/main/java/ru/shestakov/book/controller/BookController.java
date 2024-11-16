@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/books")
 @Tag(name="Сервис для работы с книгами", description="Происходит взаимодействия с книгами")
 public class BookController {
 
@@ -35,7 +35,7 @@ public class BookController {
             summary = "Получение всех доступных книг", description = "Позволяет получить список всех доступных книг "
     )
     @SecurityRequirement(name = "JWT")
-    @GetMapping("/books")
+    @GetMapping
     public List<ResponseBookDto> showAll(){
         return bookService.findAll();
     }
@@ -44,7 +44,7 @@ public class BookController {
     @Operation(
             summary = "Получение определенной книги", description = "Позволяет получить книгу по ее id"
     )
-    @GetMapping("book/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseBookDto> showOneById(@PathVariable Integer id){
         return new ResponseEntity<>(bookService.findOne(id),HttpStatus.OK);
     }
@@ -53,7 +53,7 @@ public class BookController {
     @Operation(
             summary = "Получение определенной книги", description = "Позволяет получить книгу по ее isbn"
     )
-    @GetMapping("/book/isbn/{isbn}")
+    @GetMapping("/isbn/{isbn}")
     public ResponseEntity<ResponseBookDto> showByIsbn(@PathVariable String isbn){
         return new ResponseEntity<>(bookService.findByIsbn(isbn), HttpStatus.OK);
     }
@@ -72,8 +72,8 @@ public class BookController {
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id){
-     bookService.delete(id);
+    public void delete(@PathVariable Integer id, @RequestHeader String Authorization){
+     bookService.delete(id, Authorization);
     }
 
     @SecurityRequirement(name = "JWT")

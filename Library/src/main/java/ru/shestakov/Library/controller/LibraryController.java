@@ -30,7 +30,10 @@ public class LibraryController {
     public List<LibraryDto> getFreeListBooks(){
         return libraryService.showAllFreeBooks();
     }
-
+    @GetMapping
+    public ResponseEntity<?> healthCheck(@RequestHeader String Authorization){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @Hidden
     @PostMapping("/add")
     public ResponseEntity<LibraryDto> save(@RequestParam Integer id, @RequestHeader String Authorization){

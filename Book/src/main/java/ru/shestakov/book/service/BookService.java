@@ -2,6 +2,7 @@ package ru.shestakov.book.service;
 
 
 
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shestakov.book.dto.BookDto;
@@ -41,8 +42,13 @@ public class BookService {
 
 
     public ResponseBookDto save(BookDto bookDto, String token){
-        if(bookRepository.existsByTitle(bookDto.getTitle()) && bookRepository.existsByIsbn(bookDto.getIsbn())) {
+        if (bookRepository.existsByTitle(bookDto.getTitle()) && bookRepository.existsByIsbn(bookDto.getIsbn())) {
             throw new BookAlReadyExistsException();
+        }
+        try {
+            libraryServiceClient.healthCheck(token);
+        }catch (FeignException e){
+            throw new ServiceUnvailabeException();
         }
         Book convertedBook = bookMapper.convertBookDtoToBook(bookDto);
         convertedBook.setStatus(Status.FREE);
@@ -62,14 +68,25 @@ public class BookService {
     }
 
 
-    public void delete(Integer id){
+    public void delete(Integer id,String token){
+        try{
+            libraryServiceClient.healthCheck(token);
+        }catch (FeignException e){
+            throw new ServiceUnvailabeException();
+        }
         Book book =  bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        if(book.getStatus().equals(Status.FREE)){
+            libraryServiceClient.deleteByStatus(id, token);
+        }
         bookRepository.delete(book);
     }
 
 
     public ResponseBookDto updateBook(int id, BookDto bookDto) {
         Book book =  bookMapper.convertBookDtoToBook(bookDto);
+        if(bookRepository.existsByIsbn(book.getIsbn())) {
+            throw new BookAlReadyExistsException();
+        }
         Book findBook = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         findBook.setTitle(book.getTitle());
         findBook.setIsbn(book.getIsbn());
