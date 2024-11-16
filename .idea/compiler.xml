@@ -8,20 +8,30 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Authorization" />
-        <module name="book" />
+        <module name="untitled" />
+        <module name="Book" />
+        <module name="api-gateway" />
         <module name="Library" />
+        <module name="eureka-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Auth" target="21" />
+      <module name="eureka-client" target="21" />
+      <module name="eurika-server (2)" target="21" />
+      <module name="untitled" target="22" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Auth" options="-parameters" />
       <module name="Authorization" options="-parameters" />
+      <module name="Book" options="-parameters" />
       <module name="Library" options="-parameters" />
-      <module name="book" options="-parameters" />
+      <module name="WebApi" options="" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="eureka-client" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="eurika-server (2)" options="-parameters" />
+      <module name="untitled" options="" />
     </option>
   </component>
 </project>

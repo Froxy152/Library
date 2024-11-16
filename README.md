@@ -6,9 +6,27 @@ This is a sample Java / Maven / Spring Boot it's simple REST,CRUD api.
 
 * Clone this repository
 * You can build the project and run the tests by running ```mvn clean package```
-* Once successfully built, you can run the service by one of these two methods:
+* Once successfully built, you can run the service by these method:
+* create .bat file and use script 
 ```
-       java -jar target/Library-0.0.1-SNAPSHOT.war
+@echo off
+
+
+cd Authorization
+echo Auth service starting
+start cmd /k "mvn spring-boot:run"
+cd ..
+
+cd Book
+echo Book service starting
+start cmd /k "mvn spring-boot:run"
+cd ..
+
+cd Library
+echo Library service starting
+start cmd /k "mvn spring-boot:run"
+cd ..
+
 ```
 
 
@@ -22,10 +40,11 @@ Once the application runs you should see something like this
 ### Get information about book, etc.
 
 ```
-http://localhost:8080/api/v1 - get all books
-http://localhost:8080/api/v1/{id} - get by id
-http://localhost:8080/isbn/{isbn} - get by isbn
-http://localhost:8080/api/v1/library - get all FREE books 
+http://localhost:8000/api/v1/books - get all books
+http://localhost:8000/api/v1/book/{id} - get by id
+http://localhost:8000/api/v1/book/isbn/{isbn} - get by isbn
+http://localhost:8001/api/v1/library/books - get all books with status = FREE
+
 ```
 
 
@@ -41,7 +60,6 @@ Content-Type: application/json
    "author" : "George Orwell",
    "description" : "A dystopian novel about totalitarianism.",
    "isbn" : "1234567890123",
-   "status" : "FREE"
 
 }
 RESPONSE: HTTP 201 (Created)
@@ -101,7 +119,6 @@ RESPONSE: HTTP 200 (OK)
 {
     "tokenType": "Bearer ",
     "accessToken": "some jwt token",
-    "expireTime": "expireTime"
 }
 ```
 

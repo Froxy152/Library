@@ -3,6 +3,7 @@ package ru.shestakov.book.service;
 
 
 import feign.FeignException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shestakov.book.dto.BookDto;
@@ -42,7 +43,7 @@ public class BookService {
 
 
     public ResponseBookDto save(BookDto bookDto, String token){
-        if (bookRepository.existsByTitle(bookDto.getTitle()) && bookRepository.existsByIsbn(bookDto.getIsbn())) {
+        if (bookRepository.existsByTitle(bookDto.getTitle()) || bookRepository.existsByIsbn(bookDto.getIsbn())) {
             throw new BookAlReadyExistsException();
         }
         try {
@@ -69,7 +70,7 @@ public class BookService {
 
 
     public void delete(Integer id,String token){
-        try{
+        try {
             libraryServiceClient.healthCheck(token);
         }catch (FeignException e){
             throw new ServiceUnvailabeException();
@@ -83,8 +84,12 @@ public class BookService {
 
 
     public ResponseBookDto updateBook(int id, BookDto bookDto) {
+        Book oldBook = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         Book book =  bookMapper.convertBookDtoToBook(bookDto);
-        if(bookRepository.existsByIsbn(book.getIsbn())) {
+        System.out.println(!book.getIsbn().equals(oldBook.getIsbn()));
+        System.out.println(bookRepository.existsByIsbn(book.getIsbn()));
+        if(book.getIsbn().equals(oldBook.getIsbn()) && bookRepository.existsByIsbn(book.getIsbn())) {
+
             throw new BookAlReadyExistsException();
         }
         Book findBook = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
@@ -95,10 +100,10 @@ public class BookService {
         findBook.setGenre(book.getGenre());
         return bookMapper.convertToResponseBookDto(bookRepository.save(findBook));
     }
-
+    @Transactional
     public ResponseBookDto updateStatusById(Integer id, Status status , String token){
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
-        if(status.equals(Status.OCCUPIED)){
+        if(status.equals(Status.OCCUPIED    )){
             libraryServiceClient.deleteByStatus(id,token);
         }else{
             libraryServiceClient.save(id,token);

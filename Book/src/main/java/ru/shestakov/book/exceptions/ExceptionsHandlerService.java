@@ -29,8 +29,11 @@ public class ExceptionsHandlerService extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response,HttpStatus.CONFLICT);
     }
     @ExceptionHandler
-    private ResponseEntity<?> handleUnavailableServiceException(ServiceUnvailabeException e){
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body("Service Unavailable");
+    private ResponseEntity<BookErrorResponse> handleUnavailableServiceException(ServiceUnvailabeException e){
+        BookErrorResponse response = new BookErrorResponse(
+                "Service unavailable",System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response,HttpStatus.SERVICE_UNAVAILABLE);
+
     }
 }
