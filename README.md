@@ -11,21 +11,27 @@ This is a sample Java / Maven / Spring Boot it's simple REST,CRUD api.
 ```
 @echo off
 
+cd eureka-server
+start cmd /k "mvn spring-boot:run"
+cd ..
 
 cd Authorization
-echo Auth service starting
 start cmd /k "mvn spring-boot:run"
 cd ..
 
 cd Book
-echo Book service starting
 start cmd /k "mvn spring-boot:run"
 cd ..
 
 cd Library
-echo Library service starting
 start cmd /k "mvn spring-boot:run"
 cd ..
+
+cd api-gateway
+start cmd /k "mvn spring-boot:run"
+cd ..
+
+
 
 ```
 
@@ -40,10 +46,10 @@ Once the application runs you should see something like this
 ### Get information about book, etc.
 
 ```
-http://localhost:8000/api/v1/books - get all books
-http://localhost:8000/api/v1/book/{id} - get by id
-http://localhost:8000/api/v1/book/isbn/{isbn} - get by isbn
-http://localhost:8001/api/v1/library/books - get all books with status = FREE
+http://localhost:8082/api/v1/books - get all books
+http://localhost:8082/api/v1/books/{id} - get by id
+http://localhost:8082/api/v1/books/isbn/{isbn} - get by isbn
+http://localhost:8082/api/v1/library/books - get all books with status = FREE
 
 ```
 
@@ -93,7 +99,7 @@ Content-Type: application/json
 ### Sign up and Sign in
 #### Sign up
 ```
-POST /api/v1/auth/reg
+POST /api/v1/auth/registration
 Accept: application/json
 Content-Type: application/json
 

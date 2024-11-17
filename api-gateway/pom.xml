@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>by.shestakov</groupId>
 		<artifactId>WebApi</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1</version>
 	</parent>
 
 	<artifactId>api-gateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>api-gateway</name>
 	<description>api-gateway</description>
 	<url/>

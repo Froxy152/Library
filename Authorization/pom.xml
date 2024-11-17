@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>by.shestakov</groupId>
 		<artifactId>WebApi</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1</version>
 	</parent>
 	<groupId>ru.shestakov</groupId>
 	<artifactId>Authorization</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>Auth</name>
 	<description>Auth for WebApi</description>
 	<url/>
