@@ -8,6 +8,7 @@ This is a sample Java / Maven / Spring Boot it's simple REST,CRUD api.
 * You can build the project and run the tests by running ```mvn clean package```
 * Once successfully built, you can run the service by these method:
 * create .bat file and use script 
+* after start project visit eureka-server ```localhost:8081```
 ```
 @echo off
 
